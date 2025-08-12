@@ -1,4 +1,24 @@
+import { languages } from "./languages"
+
 export default function Assembly() {
+
+  // Generates the language divs
+  function makeLanguageBlocks() {
+    return languages.map((lang, i)=> 
+      (<div 
+        key={i} 
+        style={{
+          backgroundColor:`${lang.backgroundColor}`,
+          color: `${lang.color}`
+        }}
+        className="language"
+      >
+        {lang.name}
+      </div>
+      )
+    )
+  }
+
   return(
     <>
       <main>
@@ -19,15 +39,7 @@ export default function Assembly() {
 
         <section className="game-screen">
           <div className="game-screen__languages">
-            <span className="language html">HTML</span>
-            <span className="language css">CSS</span>
-            <span className="language javascript">JavaScript</span>
-            <span className="language react">React</span>
-            <span className="language typescript">TypeScript</span>
-            <span className="language nodejs">Node.js</span>
-            <span className="language python">Python</span>
-            <span className="language ruby">Ruby</span>
-            <span className="language assembly">Assembly</span>
+            {makeLanguageBlocks()}
           </div>
           <div className="game-screen__input">
             <div className="input-letter"></div>
