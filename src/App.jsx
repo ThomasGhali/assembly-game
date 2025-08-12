@@ -11,7 +11,8 @@ export default function Assembly() {
           </div>
           <div className="game-info__result">
             <div className="game-info__result-text">
-
+              <h2>You win!</h2>
+              <p>Well done! 🎉</p>
             </div>
           </div>
         </section>
@@ -29,14 +30,14 @@ export default function Assembly() {
             <span className="language assembly">Assembly</span>
           </div>
           <div className="game-screen__input">
-            <span className="input-letter"></span>
-            <span className="input-letter"></span>
-            <span className="input-letter"></span>
-            <span className="input-letter"></span>
-            <span className="input-letter"></span>
-            <span className="input-letter"></span>
-            <span className="input-letter"></span>
-            <span className="input-letter"></span>
+            <div className="input-letter"></div>
+            <div className="input-letter"></div>
+            <div className="input-letter"></div>
+            <div className="input-letter"></div>
+            <div className="input-letter"></div>
+            <div className="input-letter"></div>
+            <div className="input-letter"></div>
+            <div className="input-letter"></div>
           </div>
           <div className="game-screen__keys"></div>
         </section>
