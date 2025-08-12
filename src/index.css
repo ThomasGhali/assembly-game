@@ -1,0 +1,145 @@
+/*=============
+CSS reset
+=============*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: "Hanken Grotesk", Arial, sans-serif;
+  background-color: #262626;
+  color: #D9D9D9;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+/*=============
+Main styles
+=============*/
+
+main {
+  outline: 1px solid red;
+  width: 450px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- game-info section --- */
+
+.game-info {
+  outline: 1px solid red;
+  width: 350px;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game-info__rules {
+  outline: 1px solid red;
+  height: 40%;
+}
+
+.game-info__header {
+  font-size: 20px;
+  color: #F9F4DA;
+  text-align: center;
+}
+
+.game-info__text {
+  font-size: 14px;
+  color: #8E8E8E;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.game-info__result {
+  outline: 1px solid red;
+  height: 45%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-info__result-text {
+  width: 98%;
+  outline: 1px solid red;
+  height: 97%;
+}
+
+/* --- Game screen section styles --- */
+
+.game-screen {
+  outline: 1px solid red;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-screen__languages {
+  outline: 1px solid red;
+  width: 70%;
+  height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 3px;
+}
+
+.language {
+  padding: 5px;
+  border-radius: 5px;
+  color: black;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.language.html {
+  background-color: #E2680F;
+}
+
+.language.css {
+  background-color: #E2680F;
+}
+
+.language.javascript {
+  background-color: #F4EB13;
+}
+
+.language.react {
+  background-color: #2ED3E9;
+}
+
+.language.typescript {
+  background-color: #298EC6;
+}
+
+.language.nodejs {
+  background-color: #599137;
+}
+
+.language.python {
+  background-color: #FFD742;
+}
+
+.language.ruby {
+  background-color: #D02B2B;
+}
+
+.language.assembly {
+  background-color: #2D519F;
+}
+
