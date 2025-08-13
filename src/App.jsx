@@ -2,10 +2,12 @@ import { useState } from "react"
 import { languages } from "./languages"
 
 export default function Assembly() {
-
+  
   const [currentWord, setCurrentWord] = useState("growth");
+  const [guessed, setGuessed] = useState([])
+  console.log(guessed);
 
-  // map over the letters and make a span element containing each's value
+  // Make a span element for each letter
   function inputWord() {
     return [...currentWord]
     .map(
@@ -39,6 +41,34 @@ export default function Assembly() {
     )
   }
 
+  function addGuess(letter) {
+    setGuessed(prevGuessed => 
+      prevGuessed.includes(letter) ? 
+        prevGuessed :
+        [...prevGuessed, letter] 
+    );
+  }
+
+
+  // Generates a div for letters A to Z
+  function keyboardKeys() {
+    const elemArr = [];
+    for (let code = 65; code < 91; code++) {
+      let letter = String.fromCharCode(code);
+      elemArr.push(
+        <button
+          key={code}
+          className="keyboard-letter"
+          onClick={() => addGuess(letter)}
+        >
+          {letter}
+        </button>
+      )
+    }
+
+    return elemArr;
+  }
+
   return(
     <>
       <main>
@@ -64,7 +94,9 @@ export default function Assembly() {
           <div className="game-screen__input">
             {inputWord()}
           </div>
-          <div className="game-screen__keys"></div>
+          <div className="game-screen__keys">
+            {keyboardKeys()}
+          </div>
         </section>
       </main>
     </>

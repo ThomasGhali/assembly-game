@@ -127,6 +127,7 @@ section.game-info {
   height: 42px;
   display: flex;
   column-gap: 2px;
+  justify-content: center;
 }
 
 .input-letter {
@@ -139,4 +140,43 @@ section.game-info {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* --- on screen keyboard styles --- */
+
+.game-screen__keys {
+  outline: 1px red solid;
+  width: 100%;
+  max-width: 450px;
+  height: 136px;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.keyboard-letter {
+  background-color: #FCBA29;
+  border: 1px solid #D7D7D7;
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* --- mobile layout styling --- */
+
+@media (max-width: 450px) {
+  .game-screen__keys {
+    width: 100%;
+    height: auto;
+    display: flex;
+    gap: 5px;
+  }
+
+  .keyboard-letter {
+    width: 35px;
+    height: 35px;
+  }
+  
 }
