@@ -3,10 +3,38 @@ import { languages } from "./languages"
 import { clsx } from "clsx";
 
 export default function Assembly() {
-  const [currentWord, setCurrentWord] = useState("GROWTH");
+  // State values
+  const [currentWord, setCurrentWord] = useState("TRANQUIL");
   const [guessed, setGuessed] = useState([]);
 
-  // Make a span element for each letter
+  // Derived values
+  const wrongGuessCount = guessed.filter((letter) => {
+    if (!currentWord.includes(letter)) return true;
+  }).length;
+
+  // Generates the language divs
+  function makeLanguageBlocks() {
+    return languages.map((lang, index)=> 
+      (<div 
+        key={index} 
+        style={{
+          backgroundColor:`${lang.backgroundColor}`,
+          color: `${lang.color}`
+        }}
+        className={
+          clsx(
+            "language",
+            {lost: index < wrongGuessCount}
+          )
+        }
+        >
+        {lang.name}
+      </div>
+      )
+    )
+  }
+  
+    // Make a span element for each letter
   function inputWord() {
     return [...currentWord]
     .map(
@@ -16,36 +44,11 @@ export default function Assembly() {
           className="input-letter"
           key={index}
         >
-          {letter.toUpperCase()}
+          {guessed.includes(letter) && letter.toUpperCase()}
         </span>
         )
       
     )
-  }
-
-  // Generates the language divs
-  function makeLanguageBlocks() {
-    return languages.map((lang, i)=> 
-      (<div 
-        key={i} 
-        style={{
-          backgroundColor:`${lang.backgroundColor}`,
-          color: `${lang.color}`
-        }}
-        className="language"
-      >
-        {lang.name}
-      </div>
-      )
-    )
-  }
-
-  function evaluate(letter) {
-    if (currentWord.includes(letter)) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   // Add guessed letter to state
