@@ -1,11 +1,10 @@
 import { useState } from "react"
 import { languages } from "./languages"
+import { clsx } from "clsx";
 
 export default function Assembly() {
-  
-  const [currentWord, setCurrentWord] = useState("growth");
-  const [guessed, setGuessed] = useState([])
-  console.log(guessed);
+  const [currentWord, setCurrentWord] = useState("GROWTH");
+  const [guessed, setGuessed] = useState([]);
 
   // Make a span element for each letter
   function inputWord() {
@@ -41,6 +40,15 @@ export default function Assembly() {
     )
   }
 
+  function evaluate(letter) {
+    if (currentWord.includes(letter)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // Add guessed letter to state
   function addGuess(letter) {
     setGuessed(prevGuessed => 
       prevGuessed.includes(letter) ? 
@@ -49,16 +57,24 @@ export default function Assembly() {
     );
   }
 
-
   // Generates a div for letters A to Z
   function keyboardKeys() {
     const elemArr = [];
     for (let code = 65; code < 91; code++) {
       let letter = String.fromCharCode(code);
+      const isCorrect = currentWord.includes(letter);
+      const isGuessed = guessed.includes(letter);
       elemArr.push(
         <button
           key={code}
-          className="keyboard-letter"
+          className={
+            clsx(
+              "keyboard-letter", 
+              isGuessed 
+                ? (isCorrect ? "bg-color-green" : "bg-color-red")
+                : null
+            )
+          }
           onClick={() => addGuess(letter)}
         >
           {letter}

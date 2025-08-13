@@ -18,6 +18,18 @@ body {
 }
 
 /*=============
+custom styles
+=============*/
+
+.bg-color-green {
+  background-color: #10A95B !important;
+}
+
+.bg-color-red {
+  background-color: #EC5D49 !important;
+}
+
+/*=============
 Main styles
 =============*/
 
