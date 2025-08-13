@@ -1,6 +1,26 @@
+import { useState } from "react"
 import { languages } from "./languages"
 
 export default function Assembly() {
+
+  const [currentWord, setCurrentWord] = useState("growth");
+
+  // map over the letters and make a span element containing each's value
+  function inputWord() {
+    return [...currentWord]
+    .map(
+      (letter, index) =>
+        (
+        <span
+          className="input-letter"
+          key={index}
+        >
+          {letter.toUpperCase()}
+        </span>
+        )
+      
+    )
+  }
 
   // Generates the language divs
   function makeLanguageBlocks() {
@@ -42,14 +62,7 @@ export default function Assembly() {
             {makeLanguageBlocks()}
           </div>
           <div className="game-screen__input">
-            <div className="input-letter"></div>
-            <div className="input-letter"></div>
-            <div className="input-letter"></div>
-            <div className="input-letter"></div>
-            <div className="input-letter"></div>
-            <div className="input-letter"></div>
-            <div className="input-letter"></div>
-            <div className="input-letter"></div>
+            {inputWord()}
           </div>
           <div className="game-screen__keys"></div>
         </section>
