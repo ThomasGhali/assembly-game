@@ -1,16 +1,39 @@
 import { useState } from "react"
 import { languages } from "./languages"
 import { clsx } from "clsx";
+import getFarewellText from "./bye";
+import getGoodJobText from "./rightMove";
 
 export default function Assembly() {
   // State values
-  const [currentWord, setCurrentWord] = useState("TRANQUIL");
+  const [currentWord, setCurrentWord] = useState("AB");
   const [guessed, setGuessed] = useState([]);
 
   // Derived values
-  const wrongGuessCount = guessed.filter((letter) => {
-    if (!currentWord.includes(letter)) return true;
-  }).length;
+  const wrongGuessCount = guessed.filter((letter) => 
+    !currentWord.includes(letter)
+  ).length;
+
+  const deadLanguage = wrongGuessCount > 0 ?
+  languages[wrongGuessCount - 1].name:
+  null;
+  
+  const isGameLost = wrongGuessCount >= languages.length - 1;
+  
+  const isGameWon = 
+    currentWord.split("").every(letter => guessed.includes(letter));
+  
+  const isGameOver = isGameWon || isGameLost;
+  // Wrong if last guessed letter is not in currentWord
+  const guessStatus = () => {
+    if (guessed.length === 0) {
+      return "none";
+    } else if(!isGameOver) {
+      return !currentWord.includes(guessed.at(-1)) ? "wrong" : "right";
+    }
+
+    return "none";
+  }
 
   // Generates the language divs
   function makeLanguageBlocks() {
@@ -70,6 +93,9 @@ export default function Assembly() {
       elemArr.push(
         <button
           key={code}
+          disabled={isGameOver}
+          aria-disabled={guessed.includes(letter)}
+          aria-label={`Letter ${letter}`}
           className={
             clsx(
               "keyboard-letter", 
@@ -88,6 +114,55 @@ export default function Assembly() {
     return elemArr;
   }
 
+  const gameStatusClass = clsx(
+    "game-info__result-text", 
+    {
+      win: isGameWon,
+      lose: isGameLost,
+      wrong: guessStatus() === "wrong",
+      right: guessStatus() === "right"
+    }
+  )
+
+  // Return game status message
+  function renderGameStatus() {
+    if (!isGameOver) {
+      if (guessStatus() === "wrong") {
+        return (
+          <>
+            <h2>{getFarewellText(deadLanguage)}</h2>
+          </>
+        )
+      } else if (guessStatus() === "right") {
+        return (
+          <>
+            <h2>{getGoodJobText()}</h2>
+          </>
+        )
+      }
+
+      return (
+        <h2>Guess your first letter! (carefully)</h2>
+      )
+    }
+
+    if (isGameWon) {
+      return (
+        <>
+          <h2>You win!</h2>
+          <p>Well done! 🎉</p>        
+        </>
+      )
+    } else {
+      return (
+        <>
+          <h2>Game Over!</h2>
+          <p>Assembly has taken control of the programming world... 💀</p>        
+        </>
+      )
+    }
+  }
+
   return(
     <>
       <main>
@@ -95,13 +170,15 @@ export default function Assembly() {
           <div className="game-info__rules">
             <h1 className="game-info__header">Assembly: Rescue Programming</h1>
             <p className="game-info__text">
-              Guess the word in under 8 attempts to keep the programming world safe from Assembly!
-            </p>
+              Guess the hidden magical word in 8 tries or less to save the programming world from Assembly’s takeover!            </p>
           </div>
           <div className="game-info__result">
-            <div className="game-info__result-text">
-              <h2>You win!</h2>
-              <p>Well done! 🎉</p>
+            <div 
+              className={gameStatusClass} 
+              aria-live="polite" 
+              role="status"
+            >
+              {renderGameStatus()}
             </div>
           </div>
         </section>
@@ -117,6 +194,11 @@ export default function Assembly() {
             {keyboardKeys()}
           </div>
         </section>
+          {isGameOver && <button
+            className="start-btn"
+          >
+            New Game
+          </button>}
       </main>
     </>
   )
