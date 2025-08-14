@@ -123,6 +123,10 @@ section.game-info {
   color: #10A95B;
 }
 
+.missedLetter {
+  color: rgb(251, 120, 120);
+}
+
 .game-info__result-text > h2 {
   font-size: 20px;
 }

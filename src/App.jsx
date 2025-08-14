@@ -7,7 +7,7 @@ export default function Assembly() {
   /* --- values section --- */
 
   // State values
-  const [currentWord, setCurrentWord] = useState("");
+  const [currentWord, setCurrentWord] = useState(() => getRandomWord());
   const [guessed, setGuessed] = useState([]);
 
   // Derived values
@@ -66,29 +66,26 @@ export default function Assembly() {
   // Set a new game
   function makeNewGame() {
     setGuessed([]);
-
+    setCurrentWord(getRandomWord());
   }
   
     // Make a span element for each letter
   function inputWord() {
-    // if new game, make a new word for guessing
-    if (guessed.length === 0 && !currentWord) {
-      return setCurrentWord(getRandomWord());
-    }
-
     return [...currentWord]
-    .map(
-      (letter, index) =>
-        (
-        <span
-          className="input-letter"
-          key={index}
-        >
-          {guessed.includes(letter) && letter.toUpperCase()}
-        </span>
-        )
-      
-    )
+      .map(
+        (letter, index) => (
+          <span
+            className={ clsx (
+              "input-letter",
+              {missedLetter: !guessed.includes(letter)}
+            )}
+            key={index}
+          >
+            {guessed.includes(letter) && !isGameLost && letter.toUpperCase()}
+            {isGameLost && letter.toUpperCase()}
+          </span>
+          )
+      )
   }
 
   // Add guessed letter to state
