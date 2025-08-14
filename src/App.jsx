@@ -175,7 +175,6 @@ export default function Assembly() {
           <div className="game-info__result">
             <div 
               className={gameStatusClass} 
-              aria-live="polite" 
               role="status"
             >
               {renderGameStatus()}
@@ -189,6 +188,22 @@ export default function Assembly() {
           </div>
           <div className="game-screen__input">
             {inputWord()}
+          </div>
+
+          {/* Combined visually-hidden aria-live region for status updates */}
+          <div 
+            className="sr-only"
+            role="status"
+          >
+            <p>
+              {currentWord.includes(lastGuessedLetter) ? 
+                `Correct! The letter ${lastGuessedLetter} is in the word.` : 
+                `Sorry, the letter ${lastGuessedLetter} is not in the word.`
+              }
+            </p>
+            <p>Current word: {currentWord.split("").map(letter => 
+                guessed.includes(letter) ? letter + "." : "blank.")
+                .join(" ")}</p>
           </div>
           <div className="game-screen__keys">
             {keyboardKeys()}
