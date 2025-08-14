@@ -1,8 +1,7 @@
 import { words } from "./words";
 
 export function getRandomWord() {
-  const word = words[Math.floor(Math.random() * words.length)];
-  return word.split("").map(letter => letter.toUpperCase()).join("");
+  return words[Math.floor(Math.random() * words.length)].toUpperCase();
 }
 
 // returns a random motivational message

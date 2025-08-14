@@ -62,6 +62,12 @@ export default function Assembly() {
       )
     )
   }
+
+  // Set a new game
+  function makeNewGame() {
+    setGuessed([]);
+
+  }
   
     // Make a span element for each letter
   function inputWord() {
@@ -69,7 +75,7 @@ export default function Assembly() {
     if (guessed.length === 0 && !currentWord) {
       return setCurrentWord(getRandomWord());
     }
-    console.log(currentWord)
+
     return [...currentWord]
     .map(
       (letter, index) =>
@@ -222,6 +228,7 @@ export default function Assembly() {
         </section>
           {isGameOver && <button
             className="start-btn"
+            onClick={makeNewGame}
           >
             New Game
           </button>}
