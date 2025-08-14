@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { languages } from "./languages"
 import { clsx } from "clsx";
-import getFarewellText from "./bye";
-import getGoodJobText from "./rightMove";
+import { getFarewellText, getGoodJobText, getRandomWord } from "./utils";
 
 export default function Assembly() {
+  /* --- values section --- */
+
   // State values
-  const [currentWord, setCurrentWord] = useState("AB");
+  const [currentWord, setCurrentWord] = useState("");
   const [guessed, setGuessed] = useState([]);
 
   // Derived values
@@ -24,12 +25,17 @@ export default function Assembly() {
     currentWord.split("").every(letter => guessed.includes(letter));
   
   const isGameOver = isGameWon || isGameLost;
+
+  const lastGuessedLetter = guessed.at(-1);
+
+  /* --- functions section --- */
+
   // Wrong if last guessed letter is not in currentWord
-  const guessStatus = () => {
+  function guessStatus() {
     if (guessed.length === 0) {
       return "none";
     } else if(!isGameOver) {
-      return !currentWord.includes(guessed.at(-1)) ? "wrong" : "right";
+      return !currentWord.includes(lastGuessedLetter) ? "wrong" : "right";
     }
 
     return "none";
@@ -59,6 +65,11 @@ export default function Assembly() {
   
     // Make a span element for each letter
   function inputWord() {
+    // if new game, make a new word for guessing
+    if (guessed.length === 0 && !currentWord) {
+      return setCurrentWord(getRandomWord());
+    }
+    console.log(currentWord)
     return [...currentWord]
     .map(
       (letter, index) =>
