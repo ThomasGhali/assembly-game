@@ -2,11 +2,12 @@ import { useState } from "react"
 import { languages } from "./languages"
 import { clsx } from "clsx";
 import { getFarewellText, getGoodJobText, getRandomWord } from "./utils";
+import Confetti from "react-confetti"
 
 export default function Assembly() {
   /* --- values section --- */
 
-  // State values
+  // Static variables
   const [currentWord, setCurrentWord] = useState(() => getRandomWord());
   const [guessed, setGuessed] = useState([]);
 
@@ -180,6 +181,7 @@ export default function Assembly() {
   return(
     <>
       <main>
+        {isGameWon && <Confetti />}
         <section className="game-info">
           <div className="game-info__rules">
             <h1 className="game-info__header">Assembly: Rescue Programming</h1>
